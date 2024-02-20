@@ -1,0 +1,24 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+        - id: PING-SERVICE
+          uri: lb://PING-SERVICE
+          predicates:
+          - Path=/ping/**
+        - id: PONG-SERVICE
+          uri: lb://PONG-SERVICE
+          predicates:
+          - Path=/pong/**
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
